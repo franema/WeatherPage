@@ -11,27 +11,30 @@ async function getCoordinates () {
 
 async function callForecast (lat, lon) {
     try {
-        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
-        const forecast = await response.json()
-        console.log(forecast)
-        manageForecast(forecast) 
+        const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
+        const forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
+        const currentWeather = await weatherResponse.json()
+        const forecast = await forecastResponse.json()
+        manageForecast(currentWeather, forecast) 
     } catch (error) {
         console.log(console.error())
     }
 }
 
-function manageForecast (forecast) {
+function manageForecast (currentWeather, forecast) {
     const $currentTemp = document.querySelector(".current_temp")
     const $maxTemp = document.querySelector(".max_temp")
     const $minTemp = document.querySelector(".min_temp")
     const $weather = document.querySelector(".weather")
     const $humidity = document.querySelector(".humidity")
 
-    $weather.textContent = `Weather: ${forecast.weather[0].main}`
-    $currentTemp.textContent = `Temperature: ${forecast.main.temp}°C`
-    $maxTemp.textContent = `Max: ${forecast.main.temp_max}°C`
-    $minTemp.textContent = `Min: ${forecast.main.temp_min}°C`
-    $humidity.textContent = `Humidity: ${forecast.main.humidity}`
+    console.log(forecast)
+
+    $weather.textContent = `Weather: ${currentWeather.weather[0].main}`
+    $currentTemp.textContent = `Temperature: ${currentWeather.main.temp}°C`
+    $maxTemp.textContent = `Max: ${currentWeather.main.temp_max}°C`
+    $minTemp.textContent = `Min: ${currentWeather.main.temp_min}°C`
+    $humidity.textContent = `Humidity: ${currentWeather.main.humidity}%`
 }
 
 const button = document.querySelector("button")
