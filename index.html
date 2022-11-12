@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +9,41 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
 </head>
+
 <body>
-    <input type="text">
-    <button>Search</button>
-    <p class="current_temp"></p>
-    <p class="max_temp"></p>
-    <p class="min_temp"></p>
-    <p class="weather"></p>
-    <p class="humidity"></p>
+    <div class="container">
+        <div class="current_weather">
+            <h3>Current Weather</h3>
+            <p class="city">London</p>
+            <p class="weather"><img src="http://openweathermap.org/img/wn/03d@2x.png" alt=""> Clouds</p>
+            <p class="current_temp">Temperature: 24°C</p>
+            <p class="max_temp">Max Temp: 26°C</p>
+            <p class="min_temp">Min Temp: 20°C</p>
+            <p class="humidity">Humidity: 86%</p>
+        </div>
+        <div class="search_bar">
+            <input type="text">
+            <button>Search</button>
+        </div>
+        <div class="forecast_container">
+            <div class="forecast">
+                <p>Tomorrow</p>
+            </div>
+            <div class="forecast">
+                <p>After Tomorrow</p>
+            </div>
+            <div class="forecast">
+                <p>In three days</p>
+            </div>
+            <div class="forecast">
+                <p>In four Days</p>
+            </div>
+            <div class="forecast">
+                <p>In five days</p>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
