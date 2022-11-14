@@ -2,11 +2,13 @@ html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    max-height: 100vh;
     overflow: hidden;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
@@ -17,7 +19,14 @@ html {
     background-size: cover;
     min-height: 100vh;
     display: grid;
-    grid-template: 1fr 0.5fr 1fr / 1fr ;
+    grid-template: 1.2fr 1fr / 1fr;
+}
+
+.current_weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
 }
 
 .current_weather {
@@ -26,17 +35,37 @@ html {
     align-items: center;
     text-align: center;
     gap: 3%;
-    margin: 4% 4% 0 4%;
-    width: 20%;
+    margin: 12% 4% 0 4%;
+    width: 70%;
     padding: 2%;
-    background-color: rgba(156, 160, 160, 0.171);
+    background-color: rgba(156, 160, 160, 0.253);
     border: 1px solid rgb(167, 167, 167);
     border-radius: 16px;
 }
 
 .search_bar {
-    margin: 1% 4% 4% 4%;
-    width: 30%;
+    margin: 1% 0 0 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_input {
+    background-color: rgba(245, 245, 220, 0.226);
+    border: 1px solid rgb(155, 155, 155);
+    border-radius: 6px;
+    padding: 1% 2%;
+}
+
+.search_image {
+    width: 5%;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.search_image:hover {
+    transform: scale(1.1);
 }
 
 .weather {
@@ -49,15 +78,87 @@ html {
     gap: 3%;
     margin: 2%;
     padding: 2%;
-    
+
 }
 
 .forecast {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     text-align: center;
-    background-color: rgba(156, 160, 160, 0.171);
+    background-color: rgba(156, 160, 160, 0.253);
     border: 1px solid rgb(167, 167, 167);
     border-radius: 16px;
     padding: 10%;
+}
+
+.day {
+    font-size: 2rem;
+}
+
+.forecast_image {
+    padding: 15%;
+}
+
+.forecast_temp {
+    font-size: 1.5rem;
+}
+
+
+/*Media Queries*/
+
+@media screen and (max-width:1450px) {
+    .container {
+        grid-template: 1.5fr 1fr / 1fr;
+    }
+}
+
+
+/* Animation */
+
+.lds-dual-ring {
+    position: fixed;
+    top:40%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+    display: inline-block;
+    padding: 10%;
+    color: black;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: rgb(12, 12, 12) transparent rgb(7, 7, 7) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.lds-dual-ring.loading {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Blur effect for loading */
+.blur {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
 }
