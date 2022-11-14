@@ -35,7 +35,7 @@ const locateUser = (() => {
     } 
 
    
-})()
+})//()
 
 const getForecast = (() => {
 
@@ -49,11 +49,12 @@ const getForecast = (() => {
     const $weekDays = document.querySelectorAll(".forecast")
     const $loader = document.querySelector(".lds-dual-ring")
     const $container = document.querySelector(".container")
+    const $searchImage = document.querySelector(".search_image")
 
     //Bind Events
 
 
-    //Funtions
+    //Functions
     async function callForecast(lat, lon) {
         toggleLoader()
         try {
@@ -74,6 +75,8 @@ const getForecast = (() => {
         $maxTemp.textContent = `Max: ${Math.round(currentWeather.main.temp_max)}°C`
         $minTemp.textContent = `Min: ${Math.round(currentWeather.main.temp_min)}°C`
         $humidity.textContent = `Humidity: ${currentWeather.main.humidity}%`
+
+        setBackground(currentWeather.weather[0].icon)
     }
 
     function manageForecast (forecast) {
@@ -98,6 +101,14 @@ const getForecast = (() => {
     function toggleLoader () {
         $container.classList.toggle("blur")
         $loader.classList.toggle("loading")
+    }
+
+    function setBackground (icon) {
+        if(icon[2] === "d") {
+            $container.classList.remove("night")
+        } else if (icon[2] === "n") {
+            $container.classList.add("night")
+        }
     }
 
     return { callForecast }
@@ -129,3 +140,5 @@ const searchForecast = (() => {
     }
 
 })()
+
+

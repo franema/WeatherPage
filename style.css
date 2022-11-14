@@ -15,11 +15,19 @@ html {
 }
 
 .container {
-    background-image: url("img/background2.jpg");
+    background-image: url("img/background_d.jpg");
     background-size: cover;
     min-height: 100vh;
     display: grid;
     grid-template: 1.2fr 1fr / 1fr;
+}
+
+.container.night {
+    background-image: url("img/background_n.jpg");
+}
+
+.night {
+    color: white;
 }
 
 .current_weather-container {
@@ -43,12 +51,15 @@ html {
     border-radius: 16px;
 }
 
+
+
 .search_bar {
     margin: 1% 0 0 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 2%;
 }
 
 .search_input {
@@ -56,12 +67,15 @@ html {
     border: 1px solid rgb(155, 155, 155);
     border-radius: 6px;
     padding: 1% 2%;
+    color: inherit;
 }
 
 .search_image {
-    width: 5%;
+    width: 7%;
     transition: all 0.5s;
     cursor: pointer;
+    background-color: rgba(245, 245, 220, 0.226);
+    border-radius: 6px;
 }
 
 .search_image:hover {
