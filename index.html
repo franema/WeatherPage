@@ -12,38 +12,44 @@
 
 <body>
     <div class="container">
-        <div class="current_weather">
-            <h3>Current Weather</h3>
-            <p class="city">London</p>
-            <p class="weather"><img src="http://openweathermap.org/img/wn/03d@2x.png" alt=""> Clouds</p>
-            <p class="current_temp">Temperature: 24°C</p>
-            <p class="max_temp">Max Temp: 26°C</p>
-            <p class="min_temp">Min Temp: 20°C</p>
-            <p class="humidity">Humidity: 86%</p>
-        </div>
-        <div class="search_bar">
-            <input type="text">
-            <button>Search</button>
+        <div class="current_weather-container">
+            <div class="current_weather">
+                <h3>Current Weather</h3>
+                <p class="city">London</p>
+                <p class="weather"><img class="weather_image" src="http://openweathermap.org/img/wn/03d@2x.png" alt="">
+                </p>
+                <p class="current_temp">Temperature: 24°C</p>
+                <p class="min_temp">Min Temp: 20°C</p>
+                <p class="max_temp">Max Temp: 26°C</p>
+                <p class="humidity">Humidity: 86%</p>
+            </div>
+            <div class="search_bar">
+                <input type="text" class="search_input">
+                <img class="search_image" src="img/search_icon.svg" alt="">
+            </div>
         </div>
         <div class="forecast_container">
-            <div class="forecast">
-                <p>Tomorrow</p>
+            <div class="forecast tomorrow">
+                <p class="day">Monday</p>
+                <img class="forecast_image" src="http://openweathermap.org/img/wn/03d@2x.png" alt="">
+                <p class="forecast_temp">37°C</p>
             </div>
-            <div class="forecast">
-                <p>After Tomorrow</p>
+            <div class="forecast after_tomorrow">
+                
             </div>
-            <div class="forecast">
-                <p>In three days</p>
+            <div class="forecast in_three_days">
+                
             </div>
-            <div class="forecast">
-                <p>In four Days</p>
+            <div class="forecast in_four_days">
+                
             </div>
-            <div class="forecast">
-                <p>In five days</p>
+            <div class="forecast in_five_days">
+                
             </div>
         </div>
     </div>
-
+    
+    <div class="lds-dual-ring"></div>
 </body>
 
 </html>
