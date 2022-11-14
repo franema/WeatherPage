@@ -10,7 +10,7 @@ const locateUser = (() => {
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition, handleError);
         } else {
             console.log("Geolocation is not supported by this browser.")
         }
@@ -29,6 +29,12 @@ const locateUser = (() => {
         }
     }
 
+    function handleError (error) {
+        console.log(error)
+        getForecast.callForecast(51.51,0.13)
+    } 
+
+   
 })()
 
 const getForecast = (() => {
@@ -41,12 +47,15 @@ const getForecast = (() => {
     const $minTemp = document.querySelector(".min_temp")
     const $humidity = document.querySelector(".humidity")
     const $weekDays = document.querySelectorAll(".forecast")
+    const $loader = document.querySelector(".lds-dual-ring")
+    const $container = document.querySelector(".container")
 
     //Bind Events
 
 
     //Funtions
     async function callForecast(lat, lon) {
+        toggleLoader()
         try {
             const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
             const forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
@@ -61,28 +70,34 @@ const getForecast = (() => {
 
     function showCurrentWeather(currentWeather) {
         $weatherImage.src = `http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
-        $currentTemp.textContent = `Temperature: ${currentWeather.main.temp}°C`
-        $maxTemp.textContent = `Max: ${currentWeather.main.temp_max}°C`
-        $minTemp.textContent = `Min: ${currentWeather.main.temp_min}°C`
+        $currentTemp.textContent = `Temperature: ${Math.round(currentWeather.main.temp)}°C`
+        $maxTemp.textContent = `Max: ${Math.round(currentWeather.main.temp_max)}°C`
+        $minTemp.textContent = `Min: ${Math.round(currentWeather.main.temp_min)}°C`
         $humidity.textContent = `Humidity: ${currentWeather.main.humidity}%`
     }
 
     function manageForecast (forecast) {
+        console.log(forecast)
         index = 7
         $weekDays.forEach((day) => {
             const date = getDayName(forecast.list[index].dt_txt)
             day.innerHTML = `
-            <p>${date}</p>
-            <img class="weather_image" src="http://openweathermap.org/img/wn/${forecast.list[index].weather[0].icon}@2x.png">
-            <p>Temperature: ${forecast.list[index].main.temp}°C </p>` 
+            <p class="day">${date}</p>
+            <img class="forecast_image" src="http://openweathermap.org/img/wn/${forecast.list[index].weather[0].icon}@2x.png">
+            <p class="forecast_temp">${Math.round(forecast.list[index].main.temp)}°C </p>` 
             index += 8
         })
-        
+        toggleLoader()
     }
 
     function getDayName (dateStr, locale = "en-US") {
         date = new Date(dateStr)
         return date.toLocaleDateString(locale, {weekday:"long"})
+    }
+
+    function toggleLoader () {
+        $container.classList.toggle("blur")
+        $loader.classList.toggle("loading")
     }
 
     return { callForecast }
@@ -92,12 +107,12 @@ const getForecast = (() => {
 const searchForecast = (() => {
 
     //DOM
-    const button = document.querySelector("button")
+    const $searchImage = document.querySelector(".search_image")
     const $cityName = document.querySelector(".city")
 
 
     //Bind Events
-    button.addEventListener("click", getCoordinates)
+    $searchImage.addEventListener("click", getCoordinates)
 
 
     //Functions
