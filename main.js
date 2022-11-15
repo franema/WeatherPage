@@ -35,7 +35,7 @@ const locateUser = (() => {
     } 
 
    
-})//()
+})()
 
 const getForecast = (() => {
 
@@ -80,7 +80,6 @@ const getForecast = (() => {
     }
 
     function manageForecast (forecast) {
-        console.log(forecast)
         index = 7
         $weekDays.forEach((day) => {
             const date = getDayName(forecast.list[index].dt_txt)
