@@ -21,7 +21,7 @@ const locateUser = (() => {
             const lat = position.coords.latitude
             const lon = position.coords.longitude
             getForecast.callForecast(lat, lon)
-            const cityResponse = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6`)
+            const cityResponse = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6`)
             const city = await cityResponse.json()
             $cityName.textContent = city[0].name
         } catch (error) {
@@ -58,8 +58,8 @@ const getForecast = (() => {
     async function callForecast(lat, lon) {
         toggleLoader()
         try {
-            const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
-            const forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
+            const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
+            const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d3dc75c491d9aa2560a56644107046e6&units=metric`)
             const currentWeather = await weatherResponse.json()
             const forecast = await forecastResponse.json()
             showCurrentWeather(currentWeather)
@@ -70,7 +70,7 @@ const getForecast = (() => {
     }
 
     function showCurrentWeather(currentWeather) {
-        $weatherImage.src = `http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
+        $weatherImage.src = `https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
         $currentTemp.textContent = `Temperature: ${Math.round(currentWeather.main.temp)}°C`
         $maxTemp.textContent = `Max: ${Math.round(currentWeather.main.temp_max)}°C`
         $minTemp.textContent = `Min: ${Math.round(currentWeather.main.temp_min)}°C`
@@ -85,7 +85,7 @@ const getForecast = (() => {
             const date = getDayName(forecast.list[index].dt_txt)
             day.innerHTML = `
             <p class="day">${date}</p>
-            <img class="forecast_image" src="http://openweathermap.org/img/wn/${forecast.list[index].weather[0].icon}@2x.png">
+            <img class="forecast_image" src="https://openweathermap.org/img/wn/${forecast.list[index].weather[0].icon}@2x.png">
             <p class="forecast_temp">${Math.round(forecast.list[index].main.temp)}°C </p>` 
             index += 8
         })
@@ -129,7 +129,7 @@ const searchForecast = (() => {
     async function getCoordinates() {
         const city = document.querySelector("input").value
         try {
-            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=d3dc75c491d9aa2560a56644107046e6`)
+            const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=d3dc75c491d9aa2560a56644107046e6`)
             const coordinatesObj = await response.json()
             getForecast.callForecast(coordinatesObj[0].lat, coordinatesObj[0].lon)
             $cityName.textContent = city
